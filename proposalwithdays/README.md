@@ -2,85 +2,43 @@
 
 ## Features
 
-Description of the module...
+Calculate the price for proposals/invoices lines using a second argument `days` along with the quantity
 
-<!--
-![Screenshot proposalwithdays](img/screenshot_proposalwithdays.png?raw=true "ProposalWithDays"){imgmd}
--->
+The total price of the line (Qty * Unit price) is then multiplicated by the number of `days`
 
-Other external modules are available on [Dolistore.com](https://www.dolistore.com).
 
-## Translations
+## Prerequisites
 
-Translations can be completed manually by editing files into directories *langs*.
+The "Proposals" module must be activated (work also with the "Invoices" module)
 
-<!--
-This module contains also a sample configuration for Transifex, under the hidden directory [.tx](.tx), so it is possible to manage translation using this service.
+The "days" parameter must be configured in the proposal module (and "Invoices" if needed) under "Complementary attributes (lines)" with these mandatory parameters:
+- Label: Days
+- Attribute code: days
+- Type: Float (can also be integer if only full days)
+- Visibility: 0
 
-For more informations, see the [translator's documentation](https://wiki.dolibarr.org/index.php/Translator_documentation).
-
-There is a [Transifex project](https://transifex.com/projects/p/dolibarr-module-template) for this module.
--->
-
-<!--
 
 ## Installation
 
-### From the ZIP file and GUI interface
+### Manually
+- Make sure Dolibarr is already installed and configured
+- Copy the module under htdocs/custom/ in your server
 
-If the module is a ready to deploy zip file, so with a name module_xxx-version.zip (like when downloading it from a market place like [Dolistore](https://www.dolistore.com)),
-go into menu ```Home - Setup - Modules - Deploy external module``` and upload the zip file.
-
-Note: If this screen tell you that there is no "custom" directory, check that your setup is correct:
-
-- In your Dolibarr installation directory, edit the ```htdocs/conf/conf.php``` file and check that following lines are not commented:
-
-    ```php
-    //$dolibarr_main_url_root_alt ...
-    //$dolibarr_main_document_root_alt ...
-    ```
-
-- Uncomment them if necessary (delete the leading ```//```) and assign a sensible value according to your Dolibarr installation
-
-    For example :
-
-    - UNIX:
-        ```php
-        $dolibarr_main_url_root_alt = '/custom';
-        $dolibarr_main_document_root_alt = '/var/www/Dolibarr/htdocs/custom';
-        ```
-
-    - Windows:
-        ```php
-        $dolibarr_main_url_root_alt = '/custom';
-        $dolibarr_main_document_root_alt = 'C:/My Web Sites/Dolibarr/htdocs/custom';
-        ```
-
-### From a GIT repository
-
-Clone the repository in ```$dolibarr_main_document_root_alt/proposalwithdays```
-
-```sh
-cd ....../custom
-git clone git@github.com:gitlogin/proposalwithdays.git proposalwithdays
-```
-
-### <a name="final_steps"></a>Final steps
-
+### Final steps
 From your browser:
 
-  - Log into Dolibarr as a super-administrator
-  - Go to "Setup" -> "Modules"
-  - You should now be able to find and enable the module
+- Log into Dolibarr as a super-administrator
+- Go to "Setup" -> "Modules"
+- You should now be able to find and enable the module (make sure you also have the "Proposals" module activated)
 
--->
 
-## Licenses
+## Documentation
 
-### Main code
+The operations are done in the `interface_99_modProposalWithDays_ProposalWithDaysTriggers.class.php` file, in the runTrigger method
 
-GPLv3 or (at your option) any later version. See file COPYING for more information.
-
-### Documentation
-
-All texts and readmes are licensed under GFDL.
+There are also 4 files under the core/tpl directory that override the base templates of the Proposals interface:
+ - `objectline_title.tpl.php`: The table header, modified to include a column "Days"
+ - `objectline_view.tpl.php`: The table content (called in a loop of lines), same thing, we add a column displaying the `days`
+ - `objectline_create.tpl.php`: Displayed under the table, it's the part creating a new line, we add an input here for the `days`
+ - `objectline_edit.tpl.php`: When editing a line, also adds an input to edit the `days`value
+ 
