@@ -267,7 +267,7 @@ $coldisplay++;
     }
     ?>
     </td>
-    
+
     <?php
 	if (!empty($conf->global->PRODUCT_USE_UNITS)) {
 		$unit_type = false;

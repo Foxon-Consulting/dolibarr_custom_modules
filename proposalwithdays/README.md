@@ -41,4 +41,3 @@ There are also 4 files under the core/tpl directory that override the base templ
  - `objectline_view.tpl.php`: The table content (called in a loop of lines), same thing, we add a column displaying the `days`
  - `objectline_create.tpl.php`: Displayed under the table, it's the part creating a new line, we add an input here for the `days`
  - `objectline_edit.tpl.php`: When editing a line, also adds an input to edit the `days`value
- 
